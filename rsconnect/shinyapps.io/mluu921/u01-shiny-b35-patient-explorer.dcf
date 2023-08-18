@@ -1,0 +1,12 @@
+name: u01-shiny-b35-patient-explorer
+title: u01-shiny-b35-patient-explorer
+username: mluu921
+account: mluu921
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 9632940
+bundleId: 7585091
+url: https://mluu921.shinyapps.io/u01-shiny-b35-patient-explorer/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

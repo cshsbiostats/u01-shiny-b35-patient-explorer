@@ -1,0 +1,28 @@
+---
+title: "PRO-CTCAE QOL Sankey Diagrams"
+date: '`r Sys.Date()`'
+params:
+  results: NA
+output: 
+  pdf_document: 
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, out.width = '100%', fig.align = 'center')
+
+library(tidyverse)
+
+```
+
+\newpage
+
+# Sankey Diagram
+```{r, fig.width=5, fig.height=5}
+params$results$plot
+```
+
+# Summary Description
+```{r}
+params$results$summary_description
+```
