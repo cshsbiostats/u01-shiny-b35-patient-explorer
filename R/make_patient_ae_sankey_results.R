@@ -13,10 +13,10 @@ calculate_ti <- function(x) {
 make_patient_ae_sankey_results <- \(data, selected_treatment, selected_ae, selected_timeframe, selected_grade) {
   
   
-  selected_treatment <- 'Anastrozole'
-  selected_ae <- 'Arthralgia (joint pain)'
-  selected_timeframe <- c(6, 30)
-  selected_grade <- '3'
+  # selected_treatment <- 'Anastrozole'
+  # selected_ae <- 'Arthralgia (joint pain)'
+  # selected_timeframe <- c(6, 30)
+  # selected_grade <- '3'
   
   response_order <- c(
     '0-1',
