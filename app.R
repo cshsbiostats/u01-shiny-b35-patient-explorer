@@ -21,7 +21,7 @@ grade_options <- data |>
   sort()
 
 main <- layout_sidebar(
-  fillable = FALSE,
+  fillable = TRUE,
   sidebar = sidebar(
     selectInput(
       inputId = 'select_trt',
