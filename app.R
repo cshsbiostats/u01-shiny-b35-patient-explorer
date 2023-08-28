@@ -57,23 +57,23 @@ main <- layout_sidebar(
       icon = icon(name = 'chart-bar', lib = 'font-awesome')
     )
   ),
-  card(
-    card_header('Sankey Diagram'),
-    card_body(class = "p-0",
-              plotOutput('sankey_plot')),
-    card_body(htmlOutput('summary_descr'), ),
-    full_screen = TRUE,
-    fill = FALSE
-  ),
-  layout_column_wrap(
-    card(card_header('Grade Duration'),
-         card_body(class = "p-0",
-                   plotOutput('grade_duration')), full_screen = TRUE),
-    card(card_header('Toxicity Index'),
-         card_body(class = "p-0",
-                   plotOutput('ti_hist')), full_screen = TRUE),
-    width = 1 / 2
+  navset_card_tab(
+    title = 'Results',
+    nav_panel(
+      title = 'Sankey Diagram',
+      card_body(class = "p-0",
+                plotOutput('sankey_plot')),
+      card_body(htmlOutput('summary_descr'))
+    ),
+    nav_panel(title = 'Grade Duration',
+              card_body(class = "p-0",
+                        plotOutput('grade_duration'))),
+    nav_panel(title = 'Toxicity Index'
+              ,
+              card_body(class = "p-0",
+                        plotOutput('ti_hist')))
   )
+  
 )
 
 ui <- page_fillable(
