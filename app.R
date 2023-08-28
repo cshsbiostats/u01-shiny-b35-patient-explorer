@@ -21,7 +21,7 @@ grade_options <- data |>
   sort()
 
 main <- layout_sidebar(
-  fillable = TRUE,
+  fillable = FALSE,
   sidebar = sidebar(
     selectInput(
       inputId = 'select_trt',
@@ -98,7 +98,7 @@ shinyApp(ui, function(input, output) {
     
     req(results())
     
-
+    
     
     output$sankey_plot <- renderPlot({
       
@@ -113,7 +113,7 @@ shinyApp(ui, function(input, output) {
     })
     
     output$summary_descr <- renderPrint({
-
+      
       results()$summary_description
     })
     
@@ -127,15 +127,15 @@ shinyApp(ui, function(input, output) {
   output$report <- downloadHandler(
     filename = \(x) {paste0('pro_ctcae_ae_sankey_', Sys.Date(), '.pdf')},
     content = function(file) {
-
+      
       rmarkdown::render(
         'explore_qol_template.Rmd',
         output_file = file,
         params = list('results' = results()),
         envir = new.env(parent = globalenv())
       )
-
+      
     }
   )
-
+  
 })
