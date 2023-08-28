@@ -13,10 +13,10 @@ calculate_ti <- function(x) {
 make_patient_ae_sankey_results <- \(data, selected_treatment, selected_ae, selected_timeframe, selected_grade) {
   
   
-  # selected_treatment <- 'Anastrozole'
-  # selected_ae <- 'Arthralgia (joint pain)'
-  # selected_timeframe <- c(6, 60)
-  # selected_grade <- '5'
+  selected_treatment <- 'Anastrozole'
+  selected_ae <- 'Arthralgia (joint pain)'
+  selected_timeframe <- c(6, 30)
+  selected_grade <- '3'
   
   response_order <- c(
     '0-1',
@@ -173,21 +173,33 @@ make_patient_ae_sankey_results <- \(data, selected_treatment, selected_ae, selec
       filter(ncycle == selected_timeframe[2]) |>
       count(ae_grade) |>
       mutate(ae_grade = factor(ae_grade, levels = response_order)) |>
-      arrange(ae_grade) |>
+      arrange(ae_grade) |> 
+      complete(ae_grade, fill = list(n = 0)) |> 
+      mutate(n = case_when(ae_grade == 'Off Treatment' ~ total_patients - sum(n),
+                           .default = n)) |> 
       mutate(
         prop = n / sum(n),
         prop = scales::percent_format()(prop)
       )
+    
+    res_ae_grade <- res |> 
+      slice(1:5)
+    
+    res_off_treatment <- res |> 
+      slice(6)
 
-    summary_res <- glue::glue_data(res, 'A total of {n} ({prop}) of the patients responded "{ae_grade}". ') |>
+    summary_res_ae_grade <- glue::glue_data(res_ae_grade, 'A total of {n} ({prop}) of the patients responded "{ae_grade}". ') |>
       glue::glue_collapse(sep = '<br>')
-
+    
+    summary_res_off_treatment <- glue::glue_data(res_off_treatment, 'Finally, a total of {n} ({prop}) of the patients were OFF the trial".')
 
     summary_description <- glue::glue(
       'Among a total of {total_patients} patients who responded "{selected_grade}" for "{selected_ae}" at {selected_timeframe[1]} M.',
       'By the {selected_timeframe[2]} M timepoint',
 
-      '{summary_res}',
+      '{summary_res_ae_grade}',
+      
+      '{summary_res_off_treatment}',
       .sep = '<br><br>'
     )
   })
