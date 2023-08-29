@@ -59,11 +59,12 @@ main <- layout_sidebar(
   ),
   navset_card_tab(
     title = 'Results',
+    full_screen = TRUE,
     nav_panel(
       title = 'Sankey Diagram',
       card_body(class = "p-0",
                 plotOutput('sankey_plot')),
-      card_body(htmlOutput('summary_descr'))
+      card_body(htmlOutput('summary_descr')),
     ),
     nav_panel(title = 'Grade Duration',
               card_body(class = "p-0",
