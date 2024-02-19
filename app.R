@@ -3,7 +3,7 @@ library(shiny)
 library(bslib)
 library(ggsankey)
 library(patchwork)
-library(shinyFeedback)
+library(bsicons)
 
 data <- read_csv(here::here('data/u01_b35_data.csv'),
                  show_col_types = FALSE)
@@ -20,27 +20,59 @@ grade_options <- data |>
   unique() |> 
   sort()
 
+
+
+
 main <- layout_sidebar(
   fillable = TRUE,
   sidebar = sidebar(
     selectInput(
       inputId = 'select_trt',
-      label = '1. Select Treatment',
+      label = tooltip(
+        span(
+          "1. Select Treatment",
+          bs_icon("info-circle")
+        ),
+        "Please select from the drop down the treatment to visualize AE data.",
+        placement = "right"
+      )
+      ,
       choices = trt_options
     ),
     selectInput(
       inputId = 'select_ae',
-      label = '2. Select AE',
+      label = tooltip(
+        span(
+          "2. Select AE",
+          bs_icon("info-circle")
+        ),
+        "Please select from the drop down the adverse event to visualize",
+        placement = "right"
+      ),
       choices = ae_options
     ),
     selectInput(
       inputId = 'select_grade',
-      label = '3. Select Grade',
+      label = tooltip(
+        span(
+          "3. Select Grade",
+          bs_icon("info-circle")
+        ),
+        "Please select from the drop down the inital grade of interest to visualize",
+        placement = "right"
+      ),
       choices = grade_options
     ),
     sliderInput(
       inputId = 'select_timeframe',
-      label = '4. Select Timeframe',
+      label = tooltip(
+        span(
+          '4. Select Timeframe',
+          bs_icon("info-circle")
+        ),
+        "Please select from the slider the time frame to visualize AE data.",
+        placement = "right"
+      ),
       min = 6,
       max = 60,
       value = c(6, 36),
@@ -78,6 +110,7 @@ main <- layout_sidebar(
 )
 
 ui <- page_fillable(
+  theme = bslib::bs_theme(preset = 'shiny', version = 5),
   main
 )
 
