@@ -4,6 +4,7 @@ library(bslib)
 library(ggsankey)
 library(patchwork)
 library(bsicons)
+library(plotly)
 
 data <- read_csv(here::here('data/u01_b35_data.csv'),
                  show_col_types = FALSE)
@@ -19,9 +20,6 @@ grade_options <- data |>
   pull(ae_grade) |> 
   unique() |> 
   sort()
-
-
-
 
 main <- layout_sidebar(
   fillable = TRUE,
@@ -100,11 +98,11 @@ main <- layout_sidebar(
     ),
     nav_panel(title = 'Grade Duration',
               card_body(class = "p-0",
-                        plotOutput('grade_duration'))),
+                        plotlyOutput('grade_duration'))),
     nav_panel(title = 'Toxicity Index'
               ,
               card_body(class = "p-0",
-                        plotOutput('ti_hist')))
+                        plotlyOutput('ti_hist')))
   )
   
 )
@@ -140,9 +138,9 @@ shinyApp(ui, function(input, output) {
       
     })
     
-    output$ti_hist <- renderPlot({
+    output$ti_hist <- renderPlotly({
       
-      results()$ti_hist
+      results()$ti_hist |> ggplotly()
       
     })
     
@@ -151,9 +149,9 @@ shinyApp(ui, function(input, output) {
       results()$summary_description
     })
     
-    output$grade_duration <- renderPlot({
+    output$grade_duration <- renderPlotly({
       
-      results()$grade_duration
+      results()$grade_duration |> ggplotly()
     })
     
   })
