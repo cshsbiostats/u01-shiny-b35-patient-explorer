@@ -31,7 +31,7 @@ main <- layout_sidebar(
           "1. Select Treatment",
           bs_icon("info-circle")
         ),
-        "Please select from the drop down the treatment to visualize AE data.",
+        "This dropdown selects the treatment of interest at the starting timeframe.",
         placement = "right"
       )
       ,
@@ -44,7 +44,7 @@ main <- layout_sidebar(
           "2. Select AE",
           bs_icon("info-circle")
         ),
-        "Please select from the drop down the adverse event to visualize",
+        "This dropdown selects the adverse event of interest at the starting timeframe",
         placement = "right"
       ),
       choices = ae_options
@@ -56,7 +56,7 @@ main <- layout_sidebar(
           "3. Select Grade",
           bs_icon("info-circle")
         ),
-        "Please select from the drop down the inital grade of interest to visualize",
+        "This dropdown selects the cohort with the selected grade of the adverse event at the starting timeframe.",
         placement = "right"
       ),
       choices = grade_options
@@ -68,7 +68,7 @@ main <- layout_sidebar(
           '4. Select Timeframe',
           bs_icon("info-circle")
         ),
-        "Please select from the slider the time frame to visualize AE data.",
+        "This slider selects the initial and end timeframe in months for the cohort of interest to visualize.",
         placement = "right"
       ),
       min = 6,
@@ -78,29 +78,50 @@ main <- layout_sidebar(
     ),
     actionButton(
       'btn_ae_visualize',
-      'Visualize',
+      tooltip(
+        span(
+          'Visualize',
+          bs_icon("info-circle")
+        ),
+        "Clicking on the following button will generate the Sankey diagram and results based upon the selected patient cohort.",
+        placement = "right"
+      ),
       icon = icon(name = 'chart-bar', lib = 'font-awesome')
     ),
     downloadButton(
       'report',
-      'Download Report',
+      tooltip(
+        span(
+          'Download Report',
+          bs_icon("info-circle")
+        ),
+        "Clicking on the following button will generate a PDF report containing the Sankey diagrams and results.",
+        placement = "right"
+      ),
       icon = icon(name = 'chart-bar', lib = 'font-awesome')
+    )
+  ),
+  card(
+    height = '200px',
+    card_header('B35 AE Cohort Explorer'),
+    card_body(
+      'This application visualizes the adverse event (AE) progression over time for a selected treatment, AE, and grade. The Sankey diagram visualizes the progression of the AE from the initial to the end timeframe. The grade duration plot visualizes the duration of the AE grade over time. The toxicity index histogram visualizes the distribution of the toxicity index for the selected AE and grade.',
     )
   ),
   navset_card_tab(
     title = 'Results',
     full_screen = TRUE,
+    height = '800px',
     nav_panel(
       title = 'Sankey Diagram',
       card_body(class = "p-0",
                 plotOutput('sankey_plot')),
-      card_body(htmlOutput('summary_descr')),
+      card_body(htmlOutput('summary_descr'))
     ),
     nav_panel(title = 'Grade Duration',
               card_body(class = "p-0",
                         plotlyOutput('grade_duration'))),
-    nav_panel(title = 'Toxicity Index'
-              ,
+    nav_panel(title = 'Toxicity Index',
               card_body(class = "p-0",
                         plotlyOutput('ti_hist')))
   )
