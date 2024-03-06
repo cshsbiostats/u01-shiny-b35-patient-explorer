@@ -130,13 +130,18 @@ make_patient_ae_sankey_results <- \(data, selected_treatment, selected_ae, selec
     plot_data <- plot_data |>
       make_long(4:ncol(plot_data))
     
+    
+    cbf_1 <- c("#999999", "#E69F00", "#56B4E9", "#009E73", 
+               "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+    
+    
     grade_colors <- c(
-      "0-1" = "#1F77B4FF",
-      "2" = "#2CA02CFF",
-      "3" = "#BCBD22FF",
-      "4" = "#FF7F0EFF",
-      "5" = "#D62728FF",
-      "Off Treatment" = "#7F7F7FFF"
+      "0-1" = "#999999",
+      "2" = "#E69F00",
+      "3" = "#56B4E9",
+      "4" = "#009E73",
+      "5" = "#D55E00",
+      "Off Treatment" = "#000000"
     )
     
     plot <- ggplot(
