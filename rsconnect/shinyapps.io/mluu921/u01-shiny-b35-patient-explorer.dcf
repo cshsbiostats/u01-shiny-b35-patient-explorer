@@ -5,7 +5,7 @@ account: mluu921
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 9632940
-bundleId: 8335392
+bundleId: 8337128
 url: https://mluu921.shinyapps.io/u01-shiny-b35-patient-explorer/
 version: 1
 asMultiple: FALSE
