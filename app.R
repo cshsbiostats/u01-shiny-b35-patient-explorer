@@ -120,10 +120,10 @@ main <- layout_sidebar(
     ),
     nav_panel(title = 'Grade Duration',
               card_body(class = "p-0",
-                        plotlyOutput('grade_duration'))),
+                        plotOutput('grade_duration'))),
     nav_panel(title = 'Toxicity Index',
               card_body(class = "p-0",
-                        plotlyOutput('ti_hist')))
+                        plotOutput('ti_hist')))
   )
   
 )
@@ -159,9 +159,9 @@ shinyApp(ui, function(input, output) {
       
     })
     
-    output$ti_hist <- renderPlotly({
+    output$ti_hist <- renderPlot({
       
-      results()$ti_hist |> ggplotly()
+      results()$ti_hist
       
     })
     
@@ -170,9 +170,9 @@ shinyApp(ui, function(input, output) {
       results()$summary_description
     })
     
-    output$grade_duration <- renderPlotly({
+    output$grade_duration <- renderPlot({
       
-      results()$grade_duration |> ggplotly()
+      results()$grade_duration
     })
     
   })
